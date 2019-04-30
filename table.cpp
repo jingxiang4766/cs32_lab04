@@ -5,12 +5,17 @@
 
 Table::Table(unsigned int max_entries):max_entries(max_entries){
 	for (int i = 0; i < max_entries; i++){
-		p.push_back(new vec);	
+		v.push_back(new std::vector<Entry>);	
 	}		
 }
 
 Table::Table(unsigned int entries, std::istream& input){
-	"stub";
+	string line;
+	getline(input, line);	
+	for (int i = 0; i < entries; i++){
+		v.push_back(new std::vector<Entry>);
+		v[i]->
+	}
 }
 
 void Table::put(unsigned int key, std::string data){

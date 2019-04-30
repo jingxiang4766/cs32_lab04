@@ -19,10 +19,12 @@ public:
 		
 private:
 	unsigned int max_entries;
+	/*
 	struct vec{
 		std::vector<Entry> v;
 	};
-	std::vector<vec*> p;
+	*/
+	std::vector<std::vector<Entry>*> v;
 };
 
 #endif /* table_h */
