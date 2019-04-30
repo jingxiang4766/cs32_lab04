@@ -3,7 +3,11 @@
 #include "table.h"
 #include "entry.h"
 
-Table::Table(unsigned int max_entries):max_entries(max_entries){}
+Table::Table(unsigned int max_entries):max_entries(max_entries){
+	for (int i = 0; i < max_entries; i++){
+		p.push_back(new vec);	
+	}		
+}
 
 Table::Table(unsigned int entries, std::istream& input){
 	"stub";
