@@ -33,7 +33,7 @@ void Table::put(unsigned int key, std::string data){
 	Entry e;
 	e.set_key(key);
 	e.set_data(data);
-	key = key % (max_entries);
+	// key = key % (max_entries);
 	v[key].push_back(e);
 }
 
@@ -44,22 +44,22 @@ void Table::put(Entry e){
 }
 
 std::string Table::get(unsigned int key) const {
-	int index = key % (max_entries);
+	// int index = key % (max_entries);
 	int okey;
 	std::string str;
-	for(int i = 0; i < v[index].size(); i++){
-		okey = v[index][i].get_key();
-		str = v[index][i].get_data();
+	for(int i = 0; i < v[key].size(); i++){
+		okey = v[key][i].get_key();
+		str = v[key][i].get_data();
 		if (key == okey) break;
-		if (i == v[index].size() - 1) str = "stub";
+		if (i == v[key].size() - 1) str = "stub";
 	}
 	return str;
 }
 
 bool Table::remove(unsigned int key){
-	int index = key % (max_entries);
-	for (int i = 0; i < v[index].size(); i++){
-		if (v[index][i].get_key() == key){
+	// int index = key % (max_entries);
+	for (int i = 0; i < v[key].size(); i++){
+		if (v[key][i].get_key() == key){
 			v.erase(v.begin() + i);
 			return true;
 		}
