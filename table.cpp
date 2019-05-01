@@ -14,16 +14,18 @@ Table::Table(unsigned int max_entries):max_entries(max_entries){
 Table::Table(unsigned int entries, std::istream& input){
 	max_entries = entries;
 	v[entries];
-	std::string line;
-	getline(input, line);
 	for (int i = 0; i < entries; i++){
 		std::vector<Entry> p;
 		v.push_back(p);
+	}
+	std::string line;
+	getline(input, line);
+	for (int i = 0; i < entries; i++){
 		int index = stoi(line);
 		Entry e;
 		e.set_key(index);
 		e.set_data(line);
-		index = index % entries;
+		index = index % max_entries;
 		v[index].push_back(e);
 		getline(input, line);
 	}
