@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "table.h"
 #include "entry.h"
 
@@ -24,7 +25,7 @@ Table::Table(unsigned int entries, std::istream& input){
 		int index = stoi(line);
 		Entry e;
 		e.set_key(index);
-		e.set_data(line);
+		e.set_data(line.substr(6));
 		index = index % max_entries;
 		v[index].push_back(e);
 		getline(input, line);
