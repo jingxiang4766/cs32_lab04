@@ -48,6 +48,12 @@ void Table::put(unsigned int key, std::string data){
 void Table::put(Entry e){
 	unsigned int value = e.get_key();
 	value = value % (max_entries);
+	for (int i = 0; i < v[value].size(); i++){
+		if (v[value][i].get_key() == e.get_key()){
+			v[value][i].set_data(e.get_data());
+			return;
+		}
+	}
 	v[value].push_back(e);
 }
 
