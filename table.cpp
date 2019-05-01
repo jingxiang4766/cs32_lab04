@@ -1,3 +1,4 @@
+//Jing Su, 6839039
 #include <iostream>
 #include <vector>
 #include <string>
@@ -134,7 +135,7 @@ std::ostream& operator<< (std::ostream& out, const Table& t){
 	}
 	mergesort(s, num);
 	for (int i = 0; i < num; i++){
-		out << s[i].get_key() << " :" << s[i].get_data() << std::endl;
+		out << s[i] << std::endl;
 	}
 	return out;
 }

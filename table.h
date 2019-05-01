@@ -1,4 +1,3 @@
-//  table.h
 //  Jing Su, 6839039
 
 #ifndef table_h
