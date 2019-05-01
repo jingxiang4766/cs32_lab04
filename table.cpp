@@ -102,7 +102,7 @@ void merge(Entry v[], size_t leftArraySize, size_t rightArraySize){
 		temp[copied++] = v[leftCopied++];
 	}
 	while(rightCopied < rightArraySize){
-		temp[copied++] = v[rightCopied + leftArraySize];
+		temp[copied++] = (v + leftCopied)[rightCopied++];
 	}
 	for (size_t i = 0; i < leftArraySize + rightArraySize; i ++){
 		v[i] = temp[i];
@@ -124,15 +124,16 @@ void mergesort(Entry s[], size_t size){
 }
 
 std::ostream& operator<< (std::ostream& out, const Table& t){
-	std::vector<Entry> s;
-	int count = 0;
+	Entry s[t.max_entries];
+	int num = 0;
 	for (int i = 0; i < t.v.size(); i++){
 		for (int j = 0; j < t.v[i].size(); j++){
-			s.push_back(t.v[i][j]);
+			s[num] = (t.v[i][j]);
+			num += 1;
 		}
 	}
-	// mergesort(s, 3142);
-	for (int i = 0; i < s.size(); i++){
+	mergesort(s, num);
+	for (int i = 0; i < num; i++){
 		out << s[i].get_key() << " :" << s[i].get_data() << std::endl;
 	}
 	return out;
