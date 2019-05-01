@@ -83,20 +83,19 @@ bool Table::remove(unsigned int key){
 	return false;
 }
 
-void merge(std::vector<Entry> v, size_t leftArraySize, size_t rightArraySize){
-	std::vector<Entry> temp;
+void merge(Entry v[], size_t leftArraySize, size_t rightArraySize){
+	Entry* temp;
 	size_t copied = 0;
 	size_t leftCopied = 0;
 	size_t rightCopied = 0;
 
-	temp[leftArraySize + rightArraySize];
+	temp = new Entry[leftArraySize + rightArraySize];
 
 	while((leftCopied < leftArraySize) && (rightCopied < rightArraySize)){
-		if(v[leftCopied].get_key() < v[rightCopied + leftArraySize]){
+		if(v[leftCopied].get_key() < (v + leftArraySize)[rightCopied].get_key()){
 			temp[copied++] = v[leftCopied++];
 		}else{
-			temp[copied++] = v[rightCopied + leftArraySize];
-			rightCopied++;
+			temp[copied++] = (v + leftArraySize)[rightCopied++];
 		}
 	}
 	while(leftCopied < leftArraySize){
@@ -104,14 +103,14 @@ void merge(std::vector<Entry> v, size_t leftArraySize, size_t rightArraySize){
 	}
 	while(rightCopied < rightArraySize){
 		temp[copied++] = v[rightCopied + leftArraySize];
-		rightCopied++;
 	}
 	for (size_t i = 0; i < leftArraySize + rightArraySize; i ++){
 		v[i] = temp[i];
 	}
+	delete[] temp;
 }
 
-void mergesort(std::vector<Entry> v, size_t size){
+void mergesort(Entry s[], size_t size){
 	size_t leftArraySize;
 	size_t rightArraySize;
 
@@ -119,25 +118,22 @@ void mergesort(std::vector<Entry> v, size_t size){
 		leftArraySize = size/2;
 		rightArraySize = size - leftArraySize;
 	}
-	mergesort(v, leftArraySize);
-	std::vector<Entry>::iterator first = v.begin()+leftArraySize;
-	std::vector<Entry>::iterator last = v.end();
-	std::vector<Entry> v2(first, last);
-	mergesort(v2, rightArraySize);
-	merge(v, leftArraySize, rightArraySize);
+	mergesort(s, leftArraySize);
+	mergesort((s + leftArraySize), rightArraySize);
+	merge(s, leftArraySize, rightArraySize);
 }
 
 std::ostream& operator<< (std::ostream& out, const Table& t){
 	std::vector<Entry> s;
+	int count = 0;
 	for (int i = 0; i < t.v.size(); i++){
 		for (int j = 0; j < t.v[i].size(); j++){
 			s.push_back(t.v[i][j]);
 		}
 	}
-	int size = s.size();
-	mergesort(s, size);
+	// mergesort(s, 3142);
 	for (int i = 0; i < s.size(); i++){
-		out << s[i];
+		out << s[i].get_key() << " :" << s[i].get_data() << std::endl;
 	}
 	return out;
 }
