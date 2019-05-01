@@ -70,9 +70,7 @@ bool Table::remove(unsigned int key){
 }
 
 std::ostream& operator<< (std::ostream& out, const Table& t){
-	out << "Table:" << std::endl;
 	for (int i = 0; i < t.v.size(); i++){
-		out << "Index " << i << "  ";
 		for (int j = 0; j < t.v[i].size(); j++){
 			out << t.v[i][j].get_key() << ": " << t.v[i][j].get_data()<< " ";
 		}
