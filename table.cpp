@@ -83,12 +83,61 @@ bool Table::remove(unsigned int key){
 	return false;
 }
 
+void merge(std::vector<Entry> v, size_t leftArraySize, size_t rightArraySize){
+	std::vector<Entry> temp;
+	size_t copied = 0;
+	size_t leftCopied = 0;
+	size_t rightCopied = 0;
+
+	temp[leftArraySize + rightArraySize];
+
+	while((leftCopied < leftArraySize) && (rightCopied < rightArraySize)){
+		if(v[leftCopied].get_key() < v[rightCopied + leftArraySize]){
+			temp[copied++] = v[leftCopied++];
+		}else{
+			temp[copied++] = v[rightCopied + leftArraySize];
+			rightCopied++;
+		}
+	}
+	while(leftCopied < leftArraySize){
+		temp[copied++] = v[leftCopied++];
+	}
+	while(rightCopied < rightArraySize){
+		temp[copied++] = v[rightCopied + leftArraySize];
+		rightCopied++;
+	}
+	for (size_t i = 0; i < leftArraySize + rightArraySize; i ++){
+		v[i] = temp[i];
+	}
+}
+
+void mergesort(std::vector<Entry> v, size_t size){
+	size_t leftArraySize;
+	size_t rightArraySize;
+
+	if (size > 1){
+		leftArraySize = size/2;
+		rightArraySize = size - leftArraySize;
+	}
+	mergesort(v, leftArraySize);
+	std::vector<Entry>::iterator first = v.begin()+leftArraySize;
+	std::vector<Entry>::iterator last = v.end();
+	std::vector<Entry> v2(first, last);
+	mergesort(v2, rightArraySize);
+	merge(v, leftArraySize, rightArraySize);
+}
+
 std::ostream& operator<< (std::ostream& out, const Table& t){
+	std::vector<Entry> s;
 	for (int i = 0; i < t.v.size(); i++){
 		for (int j = 0; j < t.v[i].size(); j++){
-			out << t.v[i][j].get_key() << ": " << t.v[i][j].get_data()<< " ";
+			s.push_back(t.v[i][j]);
 		}
-		out << std::endl;
+	}
+	int size = s.size();
+	mergesort(s, size);
+	for (int i = 0; i < s.size(); i++){
+		out << s[i];
 	}
 	return out;
 }
