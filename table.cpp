@@ -117,10 +117,10 @@ void mergesort(Entry s[], size_t size){
 	if (size > 1){
 		leftArraySize = size/2;
 		rightArraySize = size - leftArraySize;
-	}
 	mergesort(s, leftArraySize);
 	mergesort((s + leftArraySize), rightArraySize);
 	merge(s, leftArraySize, rightArraySize);
+	}
 }
 
 std::ostream& operator<< (std::ostream& out, const Table& t){
