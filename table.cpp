@@ -25,7 +25,8 @@ Table::Table(unsigned int entries, std::istream& input){
 		int index = stoi(line);
 		Entry e;
 		e.set_key(index);
-		e.set_data(line.substr(6));
+		if (index > 10000) e.set_data(line.substr(6, line.length() - 1));
+		else e.set_data(line.substr(5, line.length() - 1));
 		index = index % max_entries;
 		v[index].push_back(e);
 		getline(input, line);
@@ -75,7 +76,7 @@ bool Table::remove(unsigned int key){
 	int index = key % (max_entries);
 	for (int i = 0; i < v[index].size(); i++){
 		if (v[index][i].get_key() == key){
-			v.erase(v.begin() + i);
+			v[index].erase(v[index].begin() + i);
 			return true;
 		}
 	}
