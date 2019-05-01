@@ -25,8 +25,8 @@ Table::Table(unsigned int entries, std::istream& input){
 		int index = stoi(line);
 		Entry e;
 		e.set_key(index);
-		if (index > 10000) e.set_data(line.substr(6, line.length() - 1));
-		else e.set_data(line.substr(5, line.length() - 1));
+		int pos = line.find("	");
+		e.set_data(line.substr(pos + 1, line.length() - 1));
 		index = index % max_entries;
 		v[index].push_back(e);
 		getline(input, line);
