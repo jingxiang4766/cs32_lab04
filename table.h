@@ -16,15 +16,11 @@ public:
 	std::string get(unsigned int key) const;
 	bool remove(unsigned int key);
 	friend std::ostream& operator<< (std::ostream& out, const Table& t);
-		
+
 private:
 	unsigned int max_entries;
-	/*
-	struct vec{
-		std::vector<Entry> v;
-	};
-	*/
-	std::vector<std::vector<Entry>*> v;
+	unsigned int numbers;
+	std::vector<std::vector<Entry>> v;
 };
 
 #endif /* table_h */
