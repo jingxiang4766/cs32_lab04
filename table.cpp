@@ -67,7 +67,7 @@ std::string Table::get(unsigned int key) const {
 		okey = v[index][i].get_key();
 		str = v[index][i].get_data();
 		if (key == okey) break;
-		// if (i == v[index].size() - 1) str = "stub";
+		if (i == v[index].size() - 1) str = "";
 	}
 	return str;
 }
